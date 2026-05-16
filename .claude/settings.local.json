@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm run *)",
+      "Bash(echo \"Backend PID: $!\")",
+      "Bash(echo \"Frontend PID: $!\")",
+      "Bash(curl -s http://localhost:3001/api/profile)",
+      "Bash(curl -s http://localhost:5173)"
+    ]
+  }
+}

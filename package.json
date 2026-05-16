@@ -1,0 +1,11 @@
+{
+  "name": "website",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev:frontend": "npm --prefix frontend run dev",
+    "dev:backend": "npm --prefix backend run dev",
+    "build": "npm --prefix frontend run build",
+    "start": "NODE_ENV=production npm --prefix backend run start"
+  }
+}
