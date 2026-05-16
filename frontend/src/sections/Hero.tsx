@@ -7,7 +7,7 @@ export default function Hero({ profile }: Props) {
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
 
   return (
-    <section id="about" className="min-h-screen flex items-center justify-center px-6 pt-16 bg-gradient-to-br from-white via-violet-50 to-white dark:from-gray-950 dark:via-violet-950/20 dark:to-gray-950">
+    <section id="about" className="min-h-screen flex items-center justify-center px-6 pt-16 bg-gradient-to-br from-[#f7f2e8] via-violet-50/60 to-[#ede8dc] dark:from-[#1c1a14] dark:via-violet-950/10 dark:to-[#23201a]">
       <div className="max-w-4xl w-full flex flex-col md:flex-row items-center gap-12">
         {/* Avatar */}
         <div className="shrink-0">

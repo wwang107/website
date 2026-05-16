@@ -4,14 +4,14 @@ interface Props { skills: SkillGroup[] }
 
 export default function Skills({ skills }: Props) {
   return (
-    <section id="skills" className="py-24 px-6 bg-gray-50 dark:bg-gray-900">
+    <section id="skills" className="py-24 px-6 bg-[var(--paper-alt)]">
       <div className="max-w-4xl mx-auto">
         <SectionHeader title="Skills" subtitle="What I work with" />
         <div className="grid md:grid-cols-3 gap-6 mt-12">
           {skills.map((group) => (
             <div
               key={group.category}
-              className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-sm border border-gray-100 dark:border-gray-700 hover:shadow-md transition-shadow"
+              className="bg-[var(--paper-card)] rounded-2xl p-6 shadow-sm border border-[var(--paper-border)] hover:shadow-md transition-shadow"
             >
               <h3 className="text-gray-900 dark:text-white font-bold text-lg mb-4 flex items-center gap-2">
                 <span className="w-2 h-2 rounded-full bg-violet-500 inline-block" />

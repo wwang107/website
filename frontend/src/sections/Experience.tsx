@@ -5,7 +5,7 @@ interface Props { experience: ExperienceType[] }
 
 export default function Experience({ experience }: Props) {
   return (
-    <section id="experience" className="py-24 px-6 bg-gray-50 dark:bg-gray-900">
+    <section id="experience" className="py-24 px-6 bg-[var(--paper-alt)]">
       <div className="max-w-3xl mx-auto">
         <SectionHeader title="Experience" subtitle="Where I've worked" />
         <div className="mt-12 flex flex-col gap-8">

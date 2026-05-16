@@ -20,7 +20,7 @@ export default function Navbar() {
   return (
     <header
       className={`fixed top-0 inset-x-0 z-50 transition-all duration-300 ${
-        scrolled ? 'bg-white/90 dark:bg-gray-900/90 backdrop-blur shadow-sm' : 'bg-transparent'
+        scrolled ? 'bg-[#f7f2e8]/90 dark:bg-[#1c1a14]/90 backdrop-blur shadow-sm shadow-[#d0c9b8]/30' : 'bg-transparent'
       }`}
     >
       <nav className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
@@ -60,7 +60,7 @@ export default function Navbar() {
 
       {/* Mobile menu */}
       {menuOpen && (
-        <div className="md:hidden bg-white dark:bg-gray-900 border-t border-gray-100 dark:border-gray-800 px-6 py-4 flex flex-col gap-4">
+        <div className="md:hidden bg-[#f7f2e8] dark:bg-[#1c1a14] border-t border-[var(--paper-border)] px-6 py-4 flex flex-col gap-4">
           {NAV_ITEMS.map((item) => (
             <button
               key={item}

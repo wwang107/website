@@ -22,7 +22,7 @@ export default function Contact() {
   };
 
   return (
-    <section id="contact" className="py-24 px-6 bg-white dark:bg-gray-950">
+    <section id="contact" className="py-24 px-6 bg-[var(--paper)]">
       <div className="max-w-xl mx-auto">
         <SectionHeader title="Contact" subtitle="Let's work together" />
         <p className="text-center text-gray-500 dark:text-gray-400 mt-4 mb-10">
@@ -58,7 +58,7 @@ export default function Contact() {
                 required
                 rows={5}
                 placeholder="Tell me about your project..."
-                className="w-full px-4 py-3 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl text-gray-900 dark:text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-transparent resize-none transition"
+                className="w-full px-4 py-3 bg-[var(--paper-card)] border border-[var(--paper-border)] rounded-xl text-gray-900 dark:text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-transparent resize-none transition"
               />
             </div>
             <button
@@ -88,7 +88,7 @@ function Field({
       <input
         type={type} name={name} value={value} onChange={onChange}
         placeholder={placeholder} required={required}
-        className="w-full px-4 py-3 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl text-gray-900 dark:text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-transparent transition"
+        className="w-full px-4 py-3 bg-[var(--paper-card)] border border-[var(--paper-border)] rounded-xl text-gray-900 dark:text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-transparent transition"
       />
     </div>
   );

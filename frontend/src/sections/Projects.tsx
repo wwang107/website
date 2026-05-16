@@ -5,14 +5,14 @@ interface Props { projects: Project[] }
 
 export default function Projects({ projects }: Props) {
   return (
-    <section id="projects" className="py-24 px-6 bg-white dark:bg-gray-950">
+    <section id="projects" className="py-24 px-6 bg-[var(--paper)]">
       <div className="max-w-4xl mx-auto">
         <SectionHeader title="Projects" subtitle="Things I've built" />
         <div className="grid md:grid-cols-2 gap-6 mt-12">
           {projects.map((p) => (
             <article
               key={p.id}
-              className="group bg-gray-50 dark:bg-gray-900 border border-gray-100 dark:border-gray-800 rounded-2xl p-6 hover:shadow-lg hover:border-violet-200 dark:hover:border-violet-800 transition-all duration-200"
+              className="group bg-[var(--paper-alt)] border border-[var(--paper-border)] rounded-2xl p-6 hover:shadow-lg hover:border-violet-300 dark:hover:border-violet-800 transition-all duration-200"
             >
               <div className="flex items-start justify-between gap-4 mb-3">
                 <h3 className="text-gray-900 dark:text-white font-bold text-xl group-hover:text-violet-500 transition-colors">
