@@ -30,12 +30,13 @@ jobs:
           service_account: github-actions-service-account@${{ env.PROJECT_ID }}.gserviceaccount.com
           token_format: access_token
 
-      - name: Login to Artifact Registry
-        uses: docker/login-action@v3
+      - name: Docker Auth
+        id: docker-auth
+        uses: 'docker/login-action@v1'
         with:
-          registry: ${{ env.REGION }}-docker.pkg.dev
           username: oauth2accesstoken
           password: ${{ steps.auth.outputs.access_token }}
+          registry: ${{ env.REGION }}-docker.pkg.dev
 
       - name: Build Docker image
         run: |
