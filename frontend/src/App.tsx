@@ -1,4 +1,5 @@
 import Navbar from './components/Navbar';
+import ChatBot from './components/ChatBot';
 import Hero from './sections/Hero';
 import Skills from './sections/Skills';
 import Projects from './sections/Projects';
@@ -38,6 +39,7 @@ export default function App() {
         <p>Built with React, TypeScript, Tailwind CSS & Node.js</p>
         <p className="mt-1">© {new Date().getFullYear()} Wei Wang</p>
       </footer>
+      <ChatBot />
     </div>
   );
 }
