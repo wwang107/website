@@ -25,8 +25,8 @@ jobs:
       - name: Authenticate to Google Cloud
         uses: google-github-actions/auth@v2
         with:
-          workload_identity_provider: ${{ secrets.WIF_PROVIDER }}
-          service_account: ${{ secrets.WIF_SERVICE_ACCOUNT }}
+          workload_identity_provider: projects/297464887790/locations/global/workloadIdentityPools/my-app-dev-pool/providers/github-actions-provider
+          service_account: github-actions-service-account@${{ env.PROJECT_ID }}.gserviceaccount.com
 
       - name: Configure Docker for Artifact Registry
         run: gcloud auth configure-docker ${{ env.REGION }}-docker.pkg.dev --quiet
