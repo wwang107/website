@@ -1,110 +1,51 @@
 import { useState, useEffect, useRef } from 'react';
-
-interface Message {
-  id: string;
-  role: 'user' | 'bot';
-  text: string;
-}
-
-const GREETING = "Hi! I'm Wei's assistant. Ask me anything about him — his experience, projects, skills, or how to get in touch.";
-
-function mockReply(input: string): string {
-  const q = input.toLowerCase();
-  if (/\b(hi|hey|hello|howdy)\b/.test(q)) {
-    return "Hey there! Happy to tell you about Wei. What would you like to know?";
-  }
-  if (/\b(who|about|yourself|person)\b/.test(q)) {
-    return "Wei is a software engineer passionate about building scalable web applications and great user experiences. He loves turning ideas into polished products.";
-  }
-  if (/\b(experience|work|job|career|company|companies)\b/.test(q)) {
-    return "Wei has worked across the full stack — from building backend APIs to crafting frontend UIs. Check out the Experience section on this page for the full timeline!";
-  }
-  if (/\b(project|built|made|portfolio|side)\b/.test(q)) {
-    return "Wei has built a variety of projects — scroll up to the Projects section to see them all, with descriptions and links.";
-  }
-  if (/\b(skill|tech|stack|language|framework|tool)\b/.test(q)) {
-    return "Wei works with TypeScript, React, Node.js, and more. The Skills section above has a full breakdown by category.";
-  }
-  if (/\b(contact|email|reach|hire|message|talk)\b/.test(q)) {
-    return "You can reach Wei via the Contact form at the bottom of this page, or drop him an email directly — he'd love to hear from you!";
-  }
-  if (/\b(education|school|university|degree|study|studied)\b/.test(q)) {
-    return "Wei has a strong computer science background. Feel free to reach out if you'd like to know more!";
-  }
-  if (/\b(location|live|based|city|country)\b/.test(q)) {
-    return "Wei is currently based in the US. Check his profile at the top for the latest location details.";
-  }
-  return "Hmm, I'm not sure about that one. Try asking about Wei's experience, projects, skills, or how to contact him!";
-}
+import { useChat } from '../hooks/useChat';
 
 export default function ChatBot() {
+  const chat = useChat();
   const [isOpen, setIsOpen] = useState(false);
-  const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState('');
-  const [isTyping, setIsTyping] = useState(false);
   const [lastSeenCount, setLastSeenCount] = useState(0);
-  const hasUnread = !isOpen && messages.length > lastSeenCount;
-  const greetedRef = useRef(false);
+
+  const hasUnread = !isOpen && chat.messages.length > lastSeenCount;
   const bottomRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
-  // Send greeting once when panel is first opened
+  // Keep lastSeenCount current while panel is open
   useEffect(() => {
-    if (isOpen && !greetedRef.current) {
-      greetedRef.current = true;
-      setIsTyping(true);
-      const t = setTimeout(() => {
-        setIsTyping(false);
-        setMessages([{ id: 'greeting', role: 'bot', text: GREETING }]);
-      }, 700);
-      return () => clearTimeout(t);
-    }
-  }, [isOpen]);
-
-  // While panel is open, keep lastSeenCount in sync so closing never shows stale badge
-  useEffect(() => {
-    if (isOpen) setLastSeenCount(messages.length);
-  }, [isOpen, messages]);
-
-  function openPanel() {
-    setIsOpen(true);
-    setLastSeenCount(messages.length);
-  }
+    if (isOpen) setLastSeenCount(chat.messages.length);
+  }, [isOpen, chat.messages]);
 
   // Auto-scroll to bottom
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
-  }, [messages, isTyping]);
+  }, [chat.messages, chat.streamingText, chat.isTyping]);
 
   // Focus input on open
   useEffect(() => {
-    if (isOpen) {
-      setTimeout(() => inputRef.current?.focus(), 50);
-    }
+    if (isOpen) setTimeout(() => inputRef.current?.focus(), 50);
   }, [isOpen]);
 
   // Escape to close
   useEffect(() => {
-    const handler = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') setIsOpen(false);
-    };
+    const handler = (e: KeyboardEvent) => { if (e.key === 'Escape') setIsOpen(false); };
     window.addEventListener('keydown', handler);
     return () => window.removeEventListener('keydown', handler);
   }, []);
 
+  function openPanel() {
+    setIsOpen(true);
+    setLastSeenCount(chat.messages.length);
+  }
+
   function send() {
     const text = input.trim();
-    if (!text || isTyping) return;
-    const userMsg: Message = { id: Date.now().toString(), role: 'user', text };
-    setMessages(prev => [...prev, userMsg]);
+    if (!text || chat.isTyping || !!chat.streamingText) return;
+    chat.send(text);
     setInput('');
-    setIsTyping(true);
-    setTimeout(() => {
-      const reply = mockReply(text);
-      setIsTyping(false);
-      setMessages(prev => [...prev, { id: Date.now().toString() + 'b', role: 'bot', text: reply }]);
-    }, 650);
   }
+
+  const isBusy = chat.isTyping || !!chat.streamingText;
 
   return (
     <>
@@ -114,7 +55,10 @@ export default function ChatBot() {
           {/* Header */}
           <div className="flex items-center justify-between px-4 py-3 bg-violet-500 text-white">
             <div className="flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-green-300 animate-pulse" />
+              <span
+                className={`w-2 h-2 rounded-full ${chat.isConnected ? 'bg-green-300 animate-pulse' : 'bg-gray-300'}`}
+                title={chat.isConnected ? 'Connected' : 'Reconnecting…'}
+              />
               <span className="font-semibold text-sm">Chat with Wei's bot</span>
             </div>
             <button
@@ -130,7 +74,7 @@ export default function ChatBot() {
 
           {/* Messages */}
           <div className="flex-1 overflow-y-auto p-4 space-y-3 max-h-80 min-h-40">
-            {messages.map(msg => (
+            {chat.messages.map(msg => (
               <div key={msg.id} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
                 <div
                   className={`max-w-[80%] px-3 py-2 rounded-2xl text-sm leading-relaxed ${
@@ -144,8 +88,18 @@ export default function ChatBot() {
               </div>
             ))}
 
-            {/* Typing indicator */}
-            {isTyping && (
+            {/* Streaming bot reply */}
+            {chat.streamingText && (
+              <div className="flex justify-start">
+                <div className="max-w-[80%] px-3 py-2 rounded-2xl rounded-bl-sm text-sm leading-relaxed bg-[var(--paper-alt)] text-gray-800 dark:text-gray-200">
+                  {chat.streamingText}
+                  <span className="inline-block w-0.5 h-3.5 ml-0.5 bg-gray-400 align-middle animate-pulse" />
+                </div>
+              </div>
+            )}
+
+            {/* Typing indicator (before first chunk) */}
+            {chat.isTyping && !chat.streamingText && (
               <div className="flex justify-start">
                 <div className="bg-[var(--paper-alt)] px-4 py-3 rounded-2xl rounded-bl-sm flex gap-1 items-center">
                   <span className="w-1.5 h-1.5 rounded-full bg-gray-400 animate-bounce [animation-delay:0ms]" />
@@ -154,6 +108,12 @@ export default function ChatBot() {
                 </div>
               </div>
             )}
+
+            {/* Reconnecting notice */}
+            {!chat.isConnected && (
+              <p className="text-center text-xs text-gray-400">Reconnecting…</p>
+            )}
+
             <div ref={bottomRef} />
           </div>
 
@@ -170,7 +130,7 @@ export default function ChatBot() {
             />
             <button
               onClick={send}
-              disabled={!input.trim() || isTyping}
+              disabled={!input.trim() || isBusy}
               className="px-3 py-2 bg-violet-500 hover:bg-violet-600 disabled:opacity-40 disabled:cursor-not-allowed text-white rounded-xl transition-colors"
               aria-label="Send"
             >
