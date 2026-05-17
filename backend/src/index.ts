@@ -22,7 +22,7 @@ const profile = {
   location: 'Münster, Germany',
   email: 'wwang107@gmail.com',
   socials: {
-    github: 'https://github.com/weiwang107',
+    github: 'https://github.com/wwang107',
     linkedin: 'https://linkedin.com/in/weiwang107',
   },
 };
