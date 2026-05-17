@@ -25,6 +25,8 @@ jobs:
       - name: Authenticate to Google Cloud
         uses: google-github-actions/auth@v2
         with:
+          token_format: access_token
+          project_id: ${{ env.PROJECT_ID }}
           workload_identity_provider: projects/297464887790/locations/global/workloadIdentityPools/my-app-dev-pool/providers/github-actions-provider
           service_account: github-actions-service-account@${{ env.PROJECT_ID }}.gserviceaccount.com
 
