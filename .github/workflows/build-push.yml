@@ -26,9 +26,9 @@ jobs:
         uses: google-github-actions/auth@v2
         with:
           token_format: access_token
-          project_id: ${{ env.PROJECT_ID }}
+          project_id: pristine-surf-480504-a0
           workload_identity_provider: projects/297464887790/locations/global/workloadIdentityPools/my-app-dev-pool/providers/github-actions-provider
-          service_account: github-actions-service-account@${{ env.PROJECT_ID }}.gserviceaccount.com
+          service_account: github-actions-service-account@$pristine-surf-480504-a0.gserviceaccount.com
 
       - name: Configure Docker for Artifact Registry
         run: gcloud auth configure-docker ${{ env.REGION }}-docker.pkg.dev --quiet
