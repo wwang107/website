@@ -17,6 +17,10 @@ backend/dist/
 *.log
 npm-debug.log*
 
+# RAG — resume PDF and pre-built index (regenerate with: npm run embed)
+backend/resume.pdf
+backend/data/resume-index.json
+
 # OS
 .DS_Store
 

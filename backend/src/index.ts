@@ -5,6 +5,7 @@ import dotenv from 'dotenv';
 import path from 'path';
 import { WebSocketServer } from 'ws';
 import { handleConnection } from './chat';
+import { buildIndex } from './rag';
 
 dotenv.config();
 
@@ -140,4 +141,8 @@ const server = http.createServer(app);
 const wss = new WebSocketServer({ server, path: '/ws' });
 wss.on('connection', handleConnection);
 
-server.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));
+buildIndex();
+
+server.listen(PORT, () => {
+  console.log(`Server running on http://localhost:${PORT}`);
+});
