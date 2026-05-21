@@ -1,4 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 import { useChat } from '../hooks/useChat';
 
 export default function ChatBot() {
@@ -51,7 +53,7 @@ export default function ChatBot() {
     <>
       {/* Chat panel */}
       {isOpen && (
-        <div className="fixed bottom-24 right-4 md:right-6 z-50 w-[min(360px,calc(100vw-2rem))] flex flex-col rounded-2xl shadow-2xl border border-[var(--paper-border)] bg-[var(--paper-card)] overflow-hidden animate-[fadeSlideUp_0.2s_ease-out]">
+        <div className="fixed bottom-24 right-4 md:right-6 z-50 w-[min(480px,calc(100vw-2rem))] flex flex-col rounded-2xl shadow-2xl border border-[var(--paper-border)] bg-[var(--paper-card)] overflow-hidden animate-[fadeSlideUp_0.2s_ease-out]">
           {/* Header */}
           <div className="flex items-center justify-between px-4 py-3 bg-violet-500 text-white">
             <div className="flex items-center gap-2">
@@ -73,7 +75,7 @@ export default function ChatBot() {
           </div>
 
           {/* Messages */}
-          <div className="flex-1 overflow-y-auto p-4 space-y-3 max-h-80 min-h-40">
+          <div className="flex-1 overflow-y-auto p-4 space-y-3 max-h-[500px] min-h-60">
             {chat.messages.map(msg => (
               <div key={msg.id} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
                 <div
@@ -83,7 +85,22 @@ export default function ChatBot() {
                       : 'bg-[var(--paper-alt)] text-gray-800 dark:text-gray-200 rounded-bl-sm'
                   }`}
                 >
-                  {msg.text}
+                  {msg.role === 'user' ? msg.text : (
+                    <ReactMarkdown
+                      remarkPlugins={[remarkGfm]}
+                      components={{
+                        p: ({ children }) => <p className="mb-1 last:mb-0">{children}</p>,
+                        ul: ({ children }) => <ul className="list-disc list-inside mb-1 space-y-0.5">{children}</ul>,
+                        ol: ({ children }) => <ol className="list-decimal list-inside mb-1 space-y-0.5">{children}</ol>,
+                        li: ({ children }) => <li className="leading-snug">{children}</li>,
+                        strong: ({ children }) => <strong className="font-semibold">{children}</strong>,
+                        code: ({ children }) => <code className="bg-black/10 dark:bg-white/10 px-1 py-0.5 rounded text-xs font-mono">{children}</code>,
+                        a: ({ href, children }) => <a href={href} target="_blank" rel="noopener noreferrer" className="underline hover:opacity-80">{children}</a>,
+                      }}
+                    >
+                      {msg.text}
+                    </ReactMarkdown>
+                  )}
                 </div>
               </div>
             ))}
@@ -92,7 +109,20 @@ export default function ChatBot() {
             {chat.streamingText && (
               <div className="flex justify-start">
                 <div className="max-w-[80%] px-3 py-2 rounded-2xl rounded-bl-sm text-sm leading-relaxed bg-[var(--paper-alt)] text-gray-800 dark:text-gray-200">
-                  {chat.streamingText}
+                  <ReactMarkdown
+                    remarkPlugins={[remarkGfm]}
+                    components={{
+                      p: ({ children }) => <p className="mb-1 last:mb-0">{children}</p>,
+                      ul: ({ children }) => <ul className="list-disc list-inside mb-1 space-y-0.5">{children}</ul>,
+                      ol: ({ children }) => <ol className="list-decimal list-inside mb-1 space-y-0.5">{children}</ol>,
+                      li: ({ children }) => <li className="leading-snug">{children}</li>,
+                      strong: ({ children }) => <strong className="font-semibold">{children}</strong>,
+                      code: ({ children }) => <code className="bg-black/10 dark:bg-white/10 px-1 py-0.5 rounded text-xs font-mono">{children}</code>,
+                      a: ({ href, children }) => <a href={href} target="_blank" rel="noopener noreferrer" className="underline hover:opacity-80">{children}</a>,
+                    }}
+                  >
+                    {chat.streamingText}
+                  </ReactMarkdown>
                   <span className="inline-block w-0.5 h-3.5 ml-0.5 bg-gray-400 align-middle animate-pulse" />
                 </div>
               </div>
