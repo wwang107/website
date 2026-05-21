@@ -35,7 +35,7 @@ export default function App() {
       {projects.data && <Projects projects={projects.data} />}
       {experience.data && <Experience experience={experience.data} />}
       <Contact />
-      <footer className="py-8 text-center text-gray-400 dark:text-gray-600 text-sm border-t border-[var(--paper-border)]">
+      <footer className="py-8 text-center text-gray-400 text-sm border-t border-[var(--paper-border)]">
         <p>Built with React, TypeScript, Tailwind CSS & Node.js</p>
         <p className="mt-1">© {new Date().getFullYear()} Wei Wang</p>
       </footer>

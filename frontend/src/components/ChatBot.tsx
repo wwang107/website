@@ -82,7 +82,7 @@ export default function ChatBot() {
                   className={`max-w-[80%] px-3 py-2 rounded-2xl text-sm leading-relaxed ${
                     msg.role === 'user'
                       ? 'bg-violet-500 text-white rounded-br-sm'
-                      : 'bg-[var(--paper-alt)] text-gray-800 dark:text-gray-200 rounded-bl-sm'
+                      : 'bg-[var(--paper-alt)] text-gray-800 rounded-bl-sm'
                   }`}
                 >
                   {msg.role === 'user' ? msg.text : (
@@ -94,7 +94,7 @@ export default function ChatBot() {
                         ol: ({ children }) => <ol className="list-decimal list-inside mb-1 space-y-0.5">{children}</ol>,
                         li: ({ children }) => <li className="leading-snug">{children}</li>,
                         strong: ({ children }) => <strong className="font-semibold">{children}</strong>,
-                        code: ({ children }) => <code className="bg-black/10 dark:bg-white/10 px-1 py-0.5 rounded text-xs font-mono">{children}</code>,
+                        code: ({ children }) => <code className="bg-black/10 bg-black/10 px-1 py-0.5 rounded text-xs font-mono">{children}</code>,
                         a: ({ href, children }) => <a href={href} target="_blank" rel="noopener noreferrer" className="underline hover:opacity-80">{children}</a>,
                       }}
                     >
@@ -108,7 +108,7 @@ export default function ChatBot() {
             {/* Streaming bot reply */}
             {chat.streamingText && (
               <div className="flex justify-start">
-                <div className="max-w-[80%] px-3 py-2 rounded-2xl rounded-bl-sm text-sm leading-relaxed bg-[var(--paper-alt)] text-gray-800 dark:text-gray-200">
+                <div className="max-w-[80%] px-3 py-2 rounded-2xl rounded-bl-sm text-sm leading-relaxed bg-[var(--paper-alt)] text-gray-800">
                   <ReactMarkdown
                     remarkPlugins={[remarkGfm]}
                     components={{
@@ -117,7 +117,7 @@ export default function ChatBot() {
                       ol: ({ children }) => <ol className="list-decimal list-inside mb-1 space-y-0.5">{children}</ol>,
                       li: ({ children }) => <li className="leading-snug">{children}</li>,
                       strong: ({ children }) => <strong className="font-semibold">{children}</strong>,
-                      code: ({ children }) => <code className="bg-black/10 dark:bg-white/10 px-1 py-0.5 rounded text-xs font-mono">{children}</code>,
+                      code: ({ children }) => <code className="bg-black/10 bg-black/10 px-1 py-0.5 rounded text-xs font-mono">{children}</code>,
                       a: ({ href, children }) => <a href={href} target="_blank" rel="noopener noreferrer" className="underline hover:opacity-80">{children}</a>,
                     }}
                   >
@@ -156,7 +156,7 @@ export default function ChatBot() {
               onChange={e => setInput(e.target.value)}
               onKeyDown={e => e.key === 'Enter' && send()}
               placeholder="Ask me anything…"
-              className="flex-1 px-3 py-2 rounded-xl bg-[var(--paper-alt)] border border-[var(--paper-border)] text-sm text-gray-800 dark:text-gray-200 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-violet-400"
+              className="flex-1 px-3 py-2 rounded-xl bg-[var(--paper-alt)] border border-[var(--paper-border)] text-sm text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-violet-400"
             />
             <button
               onClick={send}
@@ -175,7 +175,7 @@ export default function ChatBot() {
       {/* Floating button */}
       <button
         onClick={() => (isOpen ? setIsOpen(false) : openPanel())}
-        className="fixed bottom-5 right-4 md:right-6 z-50 w-14 h-14 rounded-full bg-violet-500 hover:bg-violet-600 text-white shadow-lg shadow-violet-300 dark:shadow-violet-900 flex items-center justify-center transition-all hover:scale-105 active:scale-95"
+        className="fixed bottom-5 right-4 md:right-6 z-50 w-14 h-14 rounded-full bg-violet-500 hover:bg-violet-600 text-white shadow-lg shadow-violet-300 flex items-center justify-center transition-all hover:scale-105 active:scale-95"
         aria-label={isOpen ? 'Close chat' : 'Open chat'}
       >
         {isOpen ? (

@@ -7,11 +7,11 @@ export default function Hero({ profile }: Props) {
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
 
   return (
-    <section id="about" className="min-h-screen flex items-center justify-center px-6 pt-16 bg-gradient-to-br from-[#f7f2e8] via-violet-50/60 to-[#ede8dc] dark:from-[#1c1a14] dark:via-violet-950/10 dark:to-[#23201a]">
+    <section id="about" className="min-h-screen flex items-center justify-center px-6 pt-16 bg-gradient-to-br from-[#f7f2e8] via-violet-50/60 to-[#ede8dc]">
       <div className="max-w-4xl w-full flex flex-col md:flex-row items-center gap-12">
         {/* Avatar */}
         <div className="shrink-0">
-          <div className="w-40 h-40 rounded-full ring-4 ring-violet-200 dark:ring-violet-800 overflow-hidden bg-violet-100 dark:bg-violet-900 shadow-xl">
+          <div className="w-40 h-40 rounded-full ring-4 ring-violet-200 overflow-hidden bg-violet-100 shadow-xl">
             <img src={profile.avatar} alt={profile.name} className="w-full h-full object-cover" />
           </div>
         </div>
@@ -21,30 +21,30 @@ export default function Hero({ profile }: Props) {
           <p className="text-violet-500 font-semibold text-sm tracking-widest uppercase mb-2">
             Hello, I'm
           </p>
-          <h1 className="text-5xl md:text-6xl font-extrabold text-gray-900 dark:text-white mb-3 leading-tight">
+          <h1 className="text-5xl md:text-6xl font-extrabold text-gray-900 mb-3 leading-tight">
             {profile.name}
           </h1>
           <h2 className="text-2xl font-medium text-violet-500 mb-4">{profile.title}</h2>
-          <p className="text-gray-600 dark:text-gray-400 text-lg leading-relaxed max-w-xl mb-6">
+          <p className="text-gray-600 text-lg leading-relaxed max-w-xl mb-6">
             {profile.bio}
           </p>
 
           <div className="flex flex-wrap gap-3 justify-center md:justify-start mb-6">
             <button
               onClick={() => scrollTo('contact')}
-              className="px-6 py-3 bg-violet-500 hover:bg-violet-600 text-white font-semibold rounded-xl transition-colors shadow-md shadow-violet-200 dark:shadow-violet-900"
+              className="px-6 py-3 bg-violet-500 hover:bg-violet-600 text-white font-semibold rounded-xl transition-colors shadow-md shadow-violet-200"
             >
               Get in touch
             </button>
             <button
               onClick={() => scrollTo('projects')}
-              className="px-6 py-3 border-2 border-violet-500 text-violet-500 hover:bg-violet-50 dark:hover:bg-violet-950 font-semibold rounded-xl transition-colors"
+              className="px-6 py-3 border-2 border-violet-500 text-violet-500 hover:bg-violet-50 font-semibold rounded-xl transition-colors"
             >
               See my work
             </button>
           </div>
 
-          <div className="flex gap-4 justify-center md:justify-start text-gray-400 dark:text-gray-500 text-sm">
+          <div className="flex gap-4 justify-center md:justify-start text-gray-400 text-sm">
             <span className="flex items-center gap-1">
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
@@ -68,7 +68,7 @@ export default function Hero({ profile }: Props) {
                 href={url}
                 target="_blank"
                 rel="noreferrer"
-                className="w-9 h-9 flex items-center justify-center rounded-lg bg-gray-100 dark:bg-gray-800 hover:bg-violet-100 dark:hover:bg-violet-900 hover:text-violet-500 text-gray-500 transition-colors"
+                className="w-9 h-9 flex items-center justify-center rounded-lg bg-gray-100 hover:bg-violet-100 hover:text-violet-500 text-gray-500 transition-colors"
                 aria-label={name}
               >
                 <SocialIcon name={name} />

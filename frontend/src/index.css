@@ -8,14 +8,6 @@
   --paper-border: #ddd8cc;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --paper: #1c1a14;
-    --paper-alt: #23201a;
-    --paper-card: #2d2a21;
-    --paper-border: #38352a;
-  }
-}
 
 html {
   background-color: var(--paper);

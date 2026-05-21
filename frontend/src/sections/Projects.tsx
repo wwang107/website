@@ -12,10 +12,10 @@ export default function Projects({ projects }: Props) {
           {projects.map((p) => (
             <article
               key={p.id}
-              className="group bg-[var(--paper-alt)] border border-[var(--paper-border)] rounded-2xl p-6 hover:shadow-lg hover:border-violet-300 dark:hover:border-violet-800 transition-all duration-200"
+              className="group bg-[var(--paper-alt)] border border-[var(--paper-border)] rounded-2xl p-6 hover:shadow-lg hover:border-violet-300 transition-all duration-200"
             >
               <div className="flex items-start justify-between gap-4 mb-3">
-                <h3 className="text-gray-900 dark:text-white font-bold text-xl group-hover:text-violet-500 transition-colors">
+                <h3 className="text-gray-900 font-bold text-xl group-hover:text-violet-500 transition-colors">
                   {p.title}
                 </h3>
                 <div className="flex gap-2 shrink-0">
@@ -33,10 +33,10 @@ export default function Projects({ projects }: Props) {
                   </a>
                 </div>
               </div>
-              <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed mb-4">{p.description}</p>
+              <p className="text-gray-600 text-sm leading-relaxed mb-4">{p.description}</p>
               <div className="flex flex-wrap gap-2">
                 {p.tags.map((tag) => (
-                  <span key={tag} className="px-2 py-1 bg-violet-50 dark:bg-violet-950/50 text-violet-600 dark:text-violet-400 text-xs font-medium rounded-md">
+                  <span key={tag} className="px-2 py-1 bg-violet-50 text-violet-600 text-xs font-medium rounded-md">
                     {tag}
                   </span>
                 ))}
