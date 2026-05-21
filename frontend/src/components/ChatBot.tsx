@@ -8,10 +8,23 @@ export default function ChatBot() {
   const [isOpen, setIsOpen] = useState(false);
   const [input, setInput] = useState('');
   const [lastSeenCount, setLastSeenCount] = useState(0);
+  const [showTooltip, setShowTooltip] = useState(false);
 
   const hasUnread = !isOpen && chat.messages.length > lastSeenCount;
   const bottomRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+
+  // Show tooltip once per session after a short delay
+  useEffect(() => {
+    if (sessionStorage.getItem('chatTooltipSeen')) return;
+    const show = setTimeout(() => setShowTooltip(true), 2500);
+    return () => clearTimeout(show);
+  }, []);
+
+  function dismissTooltip() {
+    setShowTooltip(false);
+    sessionStorage.setItem('chatTooltipSeen', '1');
+  }
 
   // Keep lastSeenCount current while panel is open
   useEffect(() => {
@@ -38,6 +51,7 @@ export default function ChatBot() {
   function openPanel() {
     setIsOpen(true);
     setLastSeenCount(chat.messages.length);
+    dismissTooltip();
   }
 
   function send() {
@@ -172,7 +186,31 @@ export default function ChatBot() {
         </div>
       )}
 
+      {/* Tooltip bubble */}
+      {showTooltip && !isOpen && (
+        <div className="fixed bottom-24 right-4 md:right-6 z-50 animate-[fadeSlideUp_0.3s_ease-out]">
+          <div className="relative bg-white border border-violet-200 shadow-lg rounded-2xl px-4 py-3 max-w-[220px]">
+            <button
+              onClick={dismissTooltip}
+              className="absolute top-2 right-2 text-gray-300 hover:text-gray-500 transition-colors"
+              aria-label="Dismiss"
+            >
+              <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+            <p className="text-sm font-semibold text-gray-800 pr-4">👋 Ask me anything!</p>
+            <p className="text-xs text-gray-500 mt-0.5">I'm Wei's AI assistant — ask about my work, skills, or projects.</p>
+            {/* Arrow pointing down */}
+            <div className="absolute -bottom-2 right-6 w-4 h-4 bg-white border-r border-b border-violet-200 rotate-45" />
+          </div>
+        </div>
+      )}
+
       {/* Floating button */}
+      {showTooltip && !isOpen && (
+        <span className="fixed bottom-5 right-4 md:right-6 z-40 w-14 h-14 rounded-full bg-violet-400 [animation:ping-slow_1.8s_ease-in-out_infinite]" />
+      )}
       <button
         onClick={() => (isOpen ? setIsOpen(false) : openPanel())}
         className="fixed bottom-5 right-4 md:right-6 z-50 w-14 h-14 rounded-full bg-violet-500 hover:bg-violet-600 text-white shadow-lg shadow-violet-300 flex items-center justify-center transition-all hover:scale-105 active:scale-95"
@@ -196,6 +234,10 @@ export default function ChatBot() {
         @keyframes fadeSlideUp {
           from { opacity: 0; transform: translateY(12px); }
           to   { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes ping-slow {
+          0%, 100% { transform: scale(1); opacity: 0.6; }
+          50% { transform: scale(1.5); opacity: 0; }
         }
       `}</style>
     </>

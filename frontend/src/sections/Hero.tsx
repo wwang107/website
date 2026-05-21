@@ -31,12 +31,6 @@ export default function Hero({ profile }: Props) {
 
           <div className="flex flex-wrap gap-3 justify-center md:justify-start mb-6">
             <button
-              onClick={() => scrollTo('contact')}
-              className="px-6 py-3 bg-violet-500 hover:bg-violet-600 text-white font-semibold rounded-xl transition-colors shadow-md shadow-violet-200"
-            >
-              Get in touch
-            </button>
-            <button
               onClick={() => scrollTo('projects')}
               className="px-6 py-3 border-2 border-violet-500 text-violet-500 hover:bg-violet-50 font-semibold rounded-xl transition-colors"
             >
