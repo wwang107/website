@@ -7,24 +7,24 @@ export default function Hero({ profile }: Props) {
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
 
   return (
-    <section id="about" className="min-h-screen flex items-center justify-center px-6 pt-16 bg-gradient-to-br from-white via-red-50/40 to-gray-50">
+    <section id="about" className="min-h-screen flex items-center justify-center px-6 pt-16 bg-gradient-to-br from-[#faf7f2] via-accent-50/60 to-[#e8e4d8]">
       <div className="max-w-4xl w-full flex flex-col md:flex-row items-center gap-12">
         {/* Avatar */}
         <div className="shrink-0">
-          <div className="w-40 h-40 rounded-full ring-4 ring-red-200 overflow-hidden bg-red-50 shadow-xl">
+          <div className="w-40 h-40 rounded-full ring-4 ring-accent-200 overflow-hidden bg-accent-50 shadow-xl">
             <img src={profile.avatar} alt={profile.name} className="w-full h-full object-cover" />
           </div>
         </div>
 
         {/* Text */}
         <div className="text-center md:text-left">
-          <p className="text-red-600 font-semibold text-sm tracking-widest uppercase mb-2">
+          <p className="text-accent-600 font-semibold text-sm tracking-widest uppercase mb-2">
             Hello, I'm
           </p>
           <h1 className="text-5xl md:text-6xl font-extrabold text-gray-900 mb-3 leading-tight">
             {profile.name}
           </h1>
-          <h2 className="text-2xl font-medium text-red-600 mb-4">{profile.title}</h2>
+          <h2 className="text-2xl font-medium text-accent-600 mb-4">{profile.title}</h2>
           <p className="text-gray-600 text-lg leading-relaxed max-w-xl mb-6">
             {profile.bio}
           </p>
@@ -32,7 +32,7 @@ export default function Hero({ profile }: Props) {
           <div className="flex flex-wrap gap-3 justify-center md:justify-start mb-6">
             <button
               onClick={() => scrollTo('projects')}
-              className="px-6 py-3 bg-red-600 hover:bg-red-700 text-red-50 font-semibold rounded-xl transition-colors"
+              className="px-6 py-3 bg-accent-600 hover:bg-accent-700 text-accent-50 font-semibold rounded-xl transition-colors"
             >
               See my work
             </button>
@@ -46,7 +46,7 @@ export default function Hero({ profile }: Props) {
               </svg>
               {profile.location}
             </span>
-            <a href={`mailto:${profile.email}`} className="flex items-center gap-1 hover:text-red-600 transition-colors">
+            <a href={`mailto:${profile.email}`} className="flex items-center gap-1 hover:text-accent-600 transition-colors">
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
               </svg>
@@ -62,7 +62,7 @@ export default function Hero({ profile }: Props) {
                 href={url}
                 target="_blank"
                 rel="noreferrer"
-                className="w-9 h-9 flex items-center justify-center rounded-lg bg-gray-100 hover:bg-red-100 hover:text-red-600 text-gray-500 transition-colors"
+                className="w-9 h-9 flex items-center justify-center rounded-lg bg-gray-100 hover:bg-accent-100 hover:text-accent-600 text-gray-500 transition-colors"
                 aria-label={name}
               >
                 <SocialIcon name={name} />

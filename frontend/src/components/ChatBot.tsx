@@ -69,7 +69,7 @@ export default function ChatBot() {
       {isOpen && (
         <div className="fixed bottom-24 right-4 md:right-6 z-50 w-[min(480px,calc(100vw-2rem))] flex flex-col rounded-2xl shadow-2xl border border-[var(--paper-border)] bg-[var(--paper-card)] overflow-hidden animate-[fadeSlideUp_0.2s_ease-out]">
           {/* Header */}
-          <div className="flex items-center justify-between px-4 py-3 bg-red-600 text-white">
+          <div className="flex items-center justify-between px-4 py-3 bg-accent-600 text-white">
             <div className="flex items-center gap-2">
               <span
                 className={`w-2 h-2 rounded-full ${chat.isConnected ? 'bg-green-300 animate-pulse' : 'bg-gray-300'}`}
@@ -79,7 +79,7 @@ export default function ChatBot() {
             </div>
             <button
               onClick={() => setIsOpen(false)}
-              className="hover:bg-red-700 rounded-lg p-1 transition-colors"
+              className="hover:bg-accent-700 rounded-lg p-1 transition-colors"
               aria-label="Close chat"
             >
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -95,7 +95,7 @@ export default function ChatBot() {
                 <div
                   className={`max-w-[80%] px-3 py-2 rounded-2xl text-sm leading-relaxed ${
                     msg.role === 'user'
-                      ? 'bg-red-600 text-white rounded-br-sm'
+                      ? 'bg-accent-600 text-white rounded-br-sm'
                       : 'bg-[var(--paper-alt)] text-gray-800 rounded-bl-sm'
                   }`}
                 >
@@ -175,12 +175,12 @@ export default function ChatBot() {
               onChange={e => setInput(e.target.value)}
               onKeyDown={e => e.key === 'Enter' && send()}
               placeholder="Ask me anything…"
-              className="flex-1 px-3 py-2 rounded-xl bg-[var(--paper-alt)] border border-[var(--paper-border)] text-sm text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-red-400"
+              className="flex-1 px-3 py-2 rounded-xl bg-[var(--paper-alt)] border border-[var(--paper-border)] text-sm text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-accent-400"
             />
             <button
               onClick={send}
               disabled={!input.trim() || isBusy}
-              className="px-3 py-2 bg-red-600 hover:bg-red-700 disabled:opacity-40 disabled:cursor-not-allowed text-white rounded-xl transition-colors"
+              className="px-3 py-2 bg-accent-600 hover:bg-accent-700 disabled:opacity-40 disabled:cursor-not-allowed text-white rounded-xl transition-colors"
               aria-label="Send"
             >
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -194,7 +194,7 @@ export default function ChatBot() {
       {/* Tooltip bubble */}
       {showTooltip && !isOpen && (
         <div className="fixed bottom-24 right-4 md:right-6 z-50 animate-[fadeSlideUp_0.3s_ease-out]">
-          <div className="relative bg-white border border-red-200 shadow-lg rounded-2xl px-4 py-3 max-w-[220px]">
+          <div className="relative bg-white border border-accent-200 shadow-lg rounded-2xl px-4 py-3 max-w-[220px]">
             <button
               onClick={dismissTooltip}
               className="absolute top-2 right-2 text-gray-300 hover:text-gray-500 transition-colors"
@@ -207,18 +207,18 @@ export default function ChatBot() {
             <p className="text-sm font-semibold text-gray-800 pr-4">👋 Ask me anything!</p>
             <p className="text-xs text-gray-500 mt-0.5">I'm Wei's AI assistant — ask about my work, skills, or projects.</p>
             {/* Arrow pointing down */}
-            <div className="absolute -bottom-2 right-6 w-4 h-4 bg-white border-r border-b border-red-200 rotate-45" />
+            <div className="absolute -bottom-2 right-6 w-4 h-4 bg-white border-r border-b border-accent-200 rotate-45" />
           </div>
         </div>
       )}
 
       {/* Floating button */}
       {showTooltip && !isOpen && (
-        <span className="fixed bottom-5 right-4 md:right-6 z-40 w-14 h-14 rounded-full bg-red-500 [animation:ping-slow_1.8s_ease-in-out_infinite]" />
+        <span className="fixed bottom-5 right-4 md:right-6 z-40 w-14 h-14 rounded-full bg-accent-500 [animation:ping-slow_1.8s_ease-in-out_infinite]" />
       )}
       <button
         onClick={() => (isOpen ? setIsOpen(false) : openPanel())}
-        className="fixed bottom-5 right-4 md:right-6 z-50 w-14 h-14 rounded-full bg-red-600 hover:bg-red-700 text-white shadow-lg shadow-red-300 flex items-center justify-center transition-all hover:scale-105 active:scale-95"
+        className="fixed bottom-5 right-4 md:right-6 z-50 w-14 h-14 rounded-full bg-accent-600 hover:bg-accent-700 text-white shadow-lg shadow-accent-300 flex items-center justify-center transition-all hover:scale-105 active:scale-95"
         aria-label={isOpen ? 'Close chat' : 'Open chat'}
       >
         {isOpen ? (

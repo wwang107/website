@@ -13,22 +13,22 @@ export default function Experience({ experience }: Props) {
             <div key={job.id} className="flex gap-6">
               {/* Timeline */}
               <div className="flex flex-col items-center">
-                <div className="w-4 h-4 rounded-full bg-red-600 shrink-0 mt-1.5 ring-4 ring-red-100" />
+                <div className="w-4 h-4 rounded-full bg-accent-600 shrink-0 mt-1.5 ring-4 ring-accent-100" />
                 {idx < experience.length - 1 && (
-                  <div className="flex-1 w-0.5 bg-red-200 mt-2" />
+                  <div className="flex-1 w-0.5 bg-accent-200 mt-2" />
                 )}
               </div>
               {/* Content */}
               <div className="pb-8 flex-1">
                 <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1 mb-3">
                   <h3 className="text-gray-900 font-bold text-xl">{job.role}</h3>
-                  <span className="text-red-600 font-semibold">@ {job.company}</span>
+                  <span className="text-accent-600 font-semibold">@ {job.company}</span>
                   <span className="text-gray-400 text-sm ml-auto">{job.period}</span>
                 </div>
                 <ul className="space-y-2">
                   {job.bullets.map((b, i) => (
                     <li key={i} className="flex gap-3 text-gray-600 text-sm leading-relaxed">
-                      <span className="text-red-500 mt-1 shrink-0">▸</span>
+                      <span className="text-accent-500 mt-1 shrink-0">▸</span>
                       {b}
                     </li>
                   ))}
