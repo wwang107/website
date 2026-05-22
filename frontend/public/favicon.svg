@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <rect width="64" height="64" rx="14" fill="#f7f2e8"/>
-  <rect width="63" height="63" x=".5" y=".5" rx="13.5" fill="none" stroke="#ddd8cc" stroke-width="1"/>
+  <rect width="64" height="64" rx="14" fill="#f5f0e8"/>
+  <rect width="63" height="63" x=".5" y=".5" rx="13.5" fill="none" stroke="#d4cfc4" stroke-width="1"/>
   <text
     x="32"
     y="41"
@@ -9,5 +9,5 @@
     font-weight="700"
     text-anchor="middle"
     letter-spacing="-0.5"
-  ><tspan fill="#1c1917">W</tspan><tspan fill="#7c3aed">.</tspan><tspan fill="#1c1917">W</tspan></text>
+  ><tspan fill="#1c1917">W</tspan><tspan fill="#4a7c6f">.</tspan><tspan fill="#1c1917">W</tspan></text>
 </svg>
