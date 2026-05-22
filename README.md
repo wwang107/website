@@ -8,6 +8,16 @@ Full-stack personal portfolio for Wei Wang — Senior Backend Engineer.
 |---|---|
 | Frontend | React, TypeScript, Tailwind CSS, Vite |
 | Backend | Node.js, Express, TypeScript, tsx |
+| AI Chatbot | Gemini API, WebSockets, RAG (resume-grounded) |
+| Deployment | Google Cloud Run |
+
+## Features
+
+- **Portfolio sections** — Hero, Skills, Projects, Experience, Contact
+- **Project visibility** — projects are tagged `public` or `private`; private projects show a lock icon instead of links
+- **AI chatbot** — real-time streaming chatbot powered by Gemini with RAG over Wei's resume, accessible via a floating button
+- **Contact form** — POST to `/api/contact` with name, email, and message
+- **Delivery Hero color scheme** — red (`#D82128`) primary accent on a clean white base
 
 ## Project Structure
 
@@ -18,12 +28,14 @@ website/
 │   └── src/
 │       ├── api.ts           # Typed fetch wrappers
 │       ├── types.ts         # Shared TypeScript interfaces
-│       ├── hooks/           # useApi data-fetching hook
-│       ├── components/      # Navbar
+│       ├── hooks/           # useApi, useChat
+│       ├── components/      # Navbar, ChatBot
 │       └── sections/        # Hero, Skills, Projects, Experience, Contact
 ├── backend/           # Node.js + Express + TypeScript (tsx)
 │   └── src/
-│       └── index.ts         # REST API + production static file serving
+│       ├── index.ts         # REST API + production static file serving
+│       ├── chat.ts          # WebSocket handler (AI chatbot)
+│       └── rag.ts           # RAG index over resume
 └── package.json       # Root scripts
 ```
 
@@ -33,6 +45,7 @@ website/
 
 - Node.js 18+
 - npm
+- `GEMINI_API_KEY` environment variable (for the chatbot)
 
 ### Install dependencies
 
@@ -53,7 +66,7 @@ npm run dev:backend
 npm run dev:frontend
 ```
 
-The frontend proxies `/api/*` requests to the backend via Vite's dev proxy — no CORS issues.
+The frontend proxies `/api/*` and `/ws` requests to the backend via Vite's dev proxy — no CORS issues.
 
 ### Production
 
@@ -63,7 +76,7 @@ npm run build
 npm start
 ```
 
-The single Express process serves the React app from `frontend/dist/` and handles all `/api/*` routes. Visit `http://localhost:3001`.
+The single Express process serves the React app from `frontend/dist/` and handles all `/api/*` routes and the `/ws` WebSocket endpoint. Visit `http://localhost:3001`.
 
 ## API Endpoints
 
@@ -71,6 +84,7 @@ The single Express process serves the React app from `frontend/dist/` and handle
 |---|---|---|
 | `GET` | `/api/profile` | Name, title, bio, location, socials |
 | `GET` | `/api/skills` | Skill groups with items |
-| `GET` | `/api/projects` | Project cards |
+| `GET` | `/api/projects` | Project cards
 | `GET` | `/api/experience` | Work history |
 | `POST` | `/api/contact` | Contact form submission |
+| `WS` | `/ws` | Streaming AI chatbot (Gemini + RAG) |
