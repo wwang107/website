@@ -20,6 +20,7 @@ export interface Project {
   tags: string[];
   link: string;
   source: string;
+  type: 'public' | 'private';
 }
 
 export interface Experience {

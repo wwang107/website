@@ -45,6 +45,7 @@ const projects = [
     tags: ['React', 'TypeScript', 'Node.js', 'WebSockets', 'Gemini', 'Cloud Run'],
     link: '#',
     source: 'https://github.com/wwang107/website/',
+    type: 'public',
   },
   {
     id: 2,
@@ -53,6 +54,7 @@ const projects = [
     tags: ['Kotlin', 'Quarkus', 'Redis', 'K8S'],
     link: '#',
     source: '#',
+    type: 'private',
   },
   {
     id: 3,
@@ -61,6 +63,7 @@ const projects = [
     tags: ['Kotlin', 'SNS/SQS', 'Prometheus', 'Grafana', 'Go'],
     link: '#',
     source: '#',
+    type: 'private',
   },
   {
     id: 4,
@@ -69,6 +72,7 @@ const projects = [
     tags: ['PyTorch', 'Python', 'Computer Vision', 'ML'],
     link: '#',
     source: '#',
+    type: 'private',
   },
 ];
 

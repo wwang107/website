@@ -19,7 +19,7 @@ export default function App() {
     return (
       <div className="min-h-screen flex items-center justify-center bg-[var(--paper)]">
         <div className="flex flex-col items-center gap-4">
-          <div className="w-10 h-10 rounded-full border-4 border-violet-200 border-t-violet-500 animate-spin" />
+          <div className="w-10 h-10 rounded-full border-4 border-red-200 border-t-red-600 animate-spin" />
           <p className="text-gray-400 text-sm">Loading…</p>
         </div>
       </div>

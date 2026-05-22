@@ -30,11 +30,11 @@ export default function Contact() {
         </p>
 
         {status === 'sent' ? (
-          <div className="text-center py-12 px-6 bg-violet-50 rounded-2xl border border-violet-200">
+          <div className="text-center py-12 px-6 bg-red-50 rounded-2xl border border-red-200">
             <div className="text-4xl mb-3">🎉</div>
             <h3 className="text-gray-900 font-bold text-xl mb-2">Message sent!</h3>
             <p className="text-gray-500">I'll get back to you within 24 hours.</p>
-            <button onClick={() => setStatus('idle')} className="mt-6 text-violet-500 hover:text-violet-600 font-medium">
+            <button onClick={() => setStatus('idle')} className="mt-6 text-red-600 hover:text-red-700 font-medium">
               Send another message
             </button>
           </div>
@@ -58,13 +58,13 @@ export default function Contact() {
                 required
                 rows={5}
                 placeholder="Tell me about your project..."
-                className="w-full px-4 py-3 bg-[var(--paper-card)] border border-[var(--paper-border)] rounded-xl text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-transparent resize-none transition"
+                className="w-full px-4 py-3 bg-[var(--paper-card)] border border-[var(--paper-border)] rounded-xl text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent resize-none transition"
               />
             </div>
             <button
               type="submit"
               disabled={status === 'sending'}
-              className="w-full py-3 bg-violet-500 hover:bg-violet-600 disabled:opacity-60 text-white font-semibold rounded-xl transition-colors shadow-md shadow-violet-200"
+              className="w-full py-3 bg-red-600 hover:bg-red-700 disabled:opacity-60 text-white font-semibold rounded-xl transition-colors shadow-md shadow-red-200"
             >
               {status === 'sending' ? 'Sending…' : 'Send Message'}
             </button>
@@ -88,7 +88,7 @@ function Field({
       <input
         type={type} name={name} value={value} onChange={onChange}
         placeholder={placeholder} required={required}
-        className="w-full px-4 py-3 bg-[var(--paper-card)] border border-[var(--paper-border)] rounded-xl text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-transparent transition"
+        className="w-full px-4 py-3 bg-[var(--paper-card)] border border-[var(--paper-border)] rounded-xl text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent transition"
       />
     </div>
   );
