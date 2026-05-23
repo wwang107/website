@@ -48,6 +48,14 @@ export default function ChatBot() {
     return () => window.removeEventListener('keydown', handler);
   }, []);
 
+  // Lock body scroll on mobile when open
+  useEffect(() => {
+    if (isOpen && window.innerWidth < 768) {
+      document.body.style.overflow = 'hidden';
+    }
+    return () => { document.body.style.overflow = ''; };
+  }, [isOpen]);
+
   function openPanel() {
     setIsOpen(true);
     setLastSeenCount(chat.messages.length);
@@ -67,7 +75,10 @@ export default function ChatBot() {
     <>
       {/* Chat panel */}
       {isOpen && (
-        <div className="fixed bottom-24 right-4 md:right-6 z-50 w-[min(480px,calc(100vw-2rem))] flex flex-col rounded-2xl shadow-2xl border border-[var(--paper-border)] bg-[var(--paper-card)] overflow-hidden animate-[fadeSlideUp_0.2s_ease-out]">
+        <>
+        {/* Mobile backdrop — blocks background interaction */}
+        <div className="fixed inset-0 bg-black/40 z-40 md:hidden" onClick={() => setIsOpen(false)} />
+        <div className="fixed z-50 flex flex-col rounded-2xl shadow-2xl border border-[var(--paper-border)] bg-[var(--paper-card)] overflow-hidden animate-[fadeSlideUp_0.2s_ease-out] inset-x-2 top-4 bottom-24 md:inset-x-auto md:left-auto md:top-auto md:bottom-24 md:right-6 md:w-[min(480px,calc(100vw-2rem))]">
           {/* Header */}
           <div className="flex items-center justify-between px-4 py-3 bg-accent-600 text-white">
             <div className="flex items-center gap-2">
@@ -89,7 +100,7 @@ export default function ChatBot() {
           </div>
 
           {/* Messages */}
-          <div className="flex-1 overflow-y-auto p-4 space-y-3 max-h-[500px] min-h-60">
+          <div className="flex-1 overflow-y-auto p-4 space-y-3 md:max-h-[500px] min-h-60">
             {chat.messages.map(msg => (
               <div key={msg.id} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
                 <div
@@ -175,7 +186,7 @@ export default function ChatBot() {
               onChange={e => setInput(e.target.value)}
               onKeyDown={e => e.key === 'Enter' && send()}
               placeholder="Ask me anything…"
-              className="flex-1 px-3 py-2 rounded-xl bg-[var(--paper-alt)] border border-[var(--paper-border)] text-sm text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-accent-400"
+              className="flex-1 px-3 py-2 rounded-xl bg-[var(--paper-alt)] border border-[var(--paper-border)] text-base text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-accent-400"
             />
             <button
               onClick={send}
@@ -189,6 +200,7 @@ export default function ChatBot() {
             </button>
           </div>
         </div>
+        </>
       )}
 
       {/* Tooltip bubble */}
