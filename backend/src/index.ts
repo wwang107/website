@@ -6,7 +6,7 @@ import path from 'path';
 import { WebSocketServer } from 'ws';
 import { handleConnection } from './chat';
 import { buildIndex } from './rag';
-import { getPosts } from './posts';
+import { getPosts, getImage, imageContentType } from './posts';
 
 dotenv.config();
 
@@ -147,6 +147,26 @@ app.get('/api/posts/:slug', async (req, res) => {
   } catch (err) {
     console.error('[posts]', err);
     return res.status(502).json({ error: 'Could not load posts.' });
+  }
+});
+
+app.get('/api/post-images/:name', async (req, res) => {
+  const type = imageContentType(req.params.name);
+  if (!type) return res.status(404).json({ error: 'Image not found.' });
+  try {
+    const img = await getImage(req.params.name);
+    if (!img) return res.status(404).json({ error: 'Image not found.' });
+    res.set({
+      'Content-Type': type,
+      'Cache-Control': 'public, max-age=3600',
+      'X-Content-Type-Options': 'nosniff',
+      // Neutralise scripts if an SVG is opened directly.
+      'Content-Security-Policy': "default-src 'none'; style-src 'unsafe-inline'; sandbox",
+    });
+    return res.send(img);
+  } catch (err) {
+    console.error('[post-images]', err);
+    return res.status(502).json({ error: 'Could not load image.' });
   }
 });
 

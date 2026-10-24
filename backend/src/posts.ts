@@ -69,3 +69,32 @@ export async function getPosts(): Promise<Post[]> {
     throw err;
   }
 }
+
+const IMAGE_PREFIX = process.env.GCS_IMAGES_PREFIX ?? 'images/';
+const LOCAL_IMAGE_DIR = path.resolve(__dirname, '../content/images');
+
+export const IMAGE_TYPES: Record<string, string> = {
+  '.png': 'image/png',
+  '.jpg': 'image/jpeg',
+  '.jpeg': 'image/jpeg',
+  '.gif': 'image/gif',
+  '.webp': 'image/webp',
+  '.svg': 'image/svg+xml',
+};
+
+export function imageContentType(name: string): string | null {
+  if (!/^[\w][\w.-]*$/.test(name)) return null;
+  return IMAGE_TYPES[path.extname(name).toLowerCase()] ?? null;
+}
+
+/** Returns the image bytes, or null if it doesn't exist. `name` must pass imageContentType. */
+export async function getImage(name: string): Promise<Buffer | null> {
+  if (BUCKET) {
+    const file = storage.bucket(BUCKET).file(`${IMAGE_PREFIX}${name}`);
+    const [exists] = await file.exists();
+    if (!exists) return null;
+    const [buf] = await file.download();
+    return buf;
+  }
+  return fs.readFile(path.join(LOCAL_IMAGE_DIR, name)).catch(() => null);
+}
