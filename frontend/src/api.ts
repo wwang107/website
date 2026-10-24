@@ -1,4 +1,4 @@
-import type { Profile, SkillGroup, Project, Experience } from './types';
+import type { Profile, SkillGroup, Project, Experience, Post, PostSummary } from './types';
 
 const BASE = '/api';
 
@@ -12,6 +12,8 @@ export const fetchProfile = () => get<Profile>('/profile');
 export const fetchSkills = () => get<SkillGroup[]>('/skills');
 export const fetchProjects = () => get<Project[]>('/projects');
 export const fetchExperience = () => get<Experience[]>('/experience');
+export const fetchPosts = () => get<PostSummary[]>('/posts');
+export const fetchPost = (slug: string) => get<Post>(`/posts/${encodeURIComponent(slug)}`);
 
 export async function sendContact(data: { name: string; email: string; message: string }) {
   const res = await fetch(`${BASE}/contact`, {

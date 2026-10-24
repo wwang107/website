@@ -30,3 +30,14 @@ export interface Experience {
   period: string;
   bullets: string[];
 }
+
+export interface PostSummary {
+  slug: string;
+  title: string;
+  date: string;
+  summary: string;
+}
+
+export interface Post extends PostSummary {
+  body: string;
+}

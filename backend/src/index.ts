@@ -6,6 +6,7 @@ import path from 'path';
 import { WebSocketServer } from 'ws';
 import { handleConnection } from './chat';
 import { buildIndex } from './rag';
+import { getPosts } from './posts';
 
 dotenv.config();
 
@@ -127,6 +128,27 @@ app.get('/api/profile', (_req, res) => res.json(profile));
 app.get('/api/skills', (_req, res) => res.json(skills));
 app.get('/api/projects', (_req, res) => res.json(projects));
 app.get('/api/experience', (_req, res) => res.json(experience));
+
+app.get('/api/posts', async (_req, res) => {
+  try {
+    const posts = await getPosts();
+    res.json(posts.map(({ body: _body, ...meta }) => meta));
+  } catch (err) {
+    console.error('[posts]', err);
+    res.status(502).json({ error: 'Could not load posts.' });
+  }
+});
+
+app.get('/api/posts/:slug', async (req, res) => {
+  try {
+    const post = (await getPosts()).find((p) => p.slug === req.params.slug);
+    if (!post) return res.status(404).json({ error: 'Post not found.' });
+    return res.json(post);
+  } catch (err) {
+    console.error('[posts]', err);
+    return res.status(502).json({ error: 'Could not load posts.' });
+  }
+});
 
 app.post('/api/contact', (req, res) => {
   const { name, email, message } = req.body as { name?: string; email?: string; message?: string };
