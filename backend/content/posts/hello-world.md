@@ -4,6 +4,8 @@ date: 2026-10-24
 summary: Why I started this blog and what I plan to write about.
 ---
 
+![A test banner](/api/post-images/hello-banner.svg)
+
 Welcome to my blog. I'll write here about backend engineering, system design, and the things I learn along the way.
 
 ## What to expect

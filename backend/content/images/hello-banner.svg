@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="300" viewBox="0 0 800 300">
+  <rect width="800" height="300" fill="#d8ede8"/>
+  <circle cx="650" cy="90" r="45" fill="#f5f0e8"/>
+  <path d="M0 230 Q 200 140 400 220 T 800 190 V300 H0Z" fill="#6db0a2"/>
+  <path d="M0 260 Q 220 200 440 255 T 800 240 V300 H0Z" fill="#4a7c6f"/>
+  <text x="50" y="120" font-family="Georgia, serif" font-size="48" fill="#3d6860">Hello, World</text>
+</svg>
