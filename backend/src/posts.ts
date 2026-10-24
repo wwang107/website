@@ -7,6 +7,7 @@ export interface Post {
   title: string;
   date: string;
   summary: string;
+  image?: string;
   body: string;
 }
 
@@ -30,6 +31,7 @@ function parse(slug: string, raw: string): Post {
     title: meta.title ?? slug,
     date: meta.date ?? '',
     summary: meta.summary ?? '',
+    image: meta.image || undefined,
     body: match ? match[2] : raw,
   };
 }

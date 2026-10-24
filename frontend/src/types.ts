@@ -36,6 +36,7 @@ export interface PostSummary {
   title: string;
   date: string;
   summary: string;
+  image?: string;
 }
 
 export interface Post extends PostSummary {

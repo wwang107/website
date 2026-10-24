@@ -2,6 +2,7 @@
 title: Hello, World
 date: 2026-10-24
 summary: Why I started this blog and what I plan to write about.
+image: /api/post-images/hello-banner.svg
 ---
 
 ![A test banner](/api/post-images/hello-banner.svg)

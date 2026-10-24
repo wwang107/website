@@ -21,6 +21,14 @@ export default function BlogList() {
               href={`#/blog/${post.slug}`}
               className="block bg-[var(--paper-card)] rounded-2xl p-6 shadow-sm border border-[var(--paper-border)] hover:shadow-md transition-shadow"
             >
+              {post.image && (
+                <img
+                  src={post.image}
+                  alt=""
+                  loading="lazy"
+                  className="w-full h-48 object-cover rounded-xl mb-4 border border-[var(--paper-border)]"
+                />
+              )}
               <p className="text-sm text-accent-600 font-medium">{formatDate(post.date)}</p>
               <h3 className="mt-1 text-xl font-bold text-gray-900">{post.title}</h3>
               <p className="mt-2 text-gray-600">{post.summary}</p>
