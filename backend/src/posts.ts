@@ -1,4 +1,3 @@
-import fs from 'fs/promises';
 import path from 'path';
 import { Storage } from '@google-cloud/storage';
 
@@ -13,10 +12,14 @@ export interface Post {
 
 const BUCKET = process.env.GCS_BUCKET;
 const PREFIX = process.env.GCS_POSTS_PREFIX ?? 'posts/';
-const LOCAL_DIR = path.resolve(__dirname, '../content/posts');
 const CACHE_TTL_MS = 60_000;
 
 const storage = new Storage();
+
+function requireBucket(): string {
+  if (!BUCKET) throw new Error('GCS_BUCKET is not set');
+  return BUCKET;
+}
 let cache: { at: number; posts: Post[] } | null = null;
 
 function parse(slug: string, raw: string): Post {
@@ -37,23 +40,14 @@ function parse(slug: string, raw: string): Post {
 }
 
 async function readSources(): Promise<{ slug: string; raw: string }[]> {
-  if (BUCKET) {
-    const [files] = await storage.bucket(BUCKET).getFiles({ prefix: PREFIX });
-    return Promise.all(
-      files
-        .filter((f) => f.name.endsWith('.md'))
-        .map(async (f) => {
-          const [buf] = await f.download();
-          return { slug: path.basename(f.name, '.md'), raw: buf.toString('utf8') };
-        }),
-    );
-  }
-  const names = (await fs.readdir(LOCAL_DIR).catch(() => [])).filter((n) => n.endsWith('.md'));
+  const [files] = await storage.bucket(requireBucket()).getFiles({ prefix: PREFIX });
   return Promise.all(
-    names.map(async (n) => ({
-      slug: path.basename(n, '.md'),
-      raw: await fs.readFile(path.join(LOCAL_DIR, n), 'utf8'),
-    })),
+    files
+      .filter((f) => f.name.endsWith('.md'))
+      .map(async (f) => {
+        const [buf] = await f.download();
+        return { slug: path.basename(f.name, '.md'), raw: buf.toString('utf8') };
+      }),
   );
 }
 
@@ -73,7 +67,6 @@ export async function getPosts(): Promise<Post[]> {
 }
 
 const IMAGE_PREFIX = process.env.GCS_IMAGES_PREFIX ?? 'images/';
-const LOCAL_IMAGE_DIR = path.resolve(__dirname, '../content/images');
 
 export const IMAGE_TYPES: Record<string, string> = {
   '.png': 'image/png',
@@ -91,12 +84,9 @@ export function imageContentType(name: string): string | null {
 
 /** Returns the image bytes, or null if it doesn't exist. `name` must pass imageContentType. */
 export async function getImage(name: string): Promise<Buffer | null> {
-  if (BUCKET) {
-    const file = storage.bucket(BUCKET).file(`${IMAGE_PREFIX}${name}`);
-    const [exists] = await file.exists();
-    if (!exists) return null;
-    const [buf] = await file.download();
-    return buf;
-  }
-  return fs.readFile(path.join(LOCAL_IMAGE_DIR, name)).catch(() => null);
+  const file = storage.bucket(requireBucket()).file(`${IMAGE_PREFIX}${name}`);
+  const [exists] = await file.exists();
+  if (!exists) return null;
+  const [buf] = await file.download();
+  return buf;
 }
