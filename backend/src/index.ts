@@ -41,6 +41,15 @@ const skills = [
 const projects = [
     {
     id: 1,
+    title: 'Stox',
+    description: 'A stock research console for looking up stock, ETF, crypto, and FX prices and recent financial news, with a natural-language research mode backed by a swappable LLM provider (DeepSeek, OpenAI, or any OpenAI-compatible API).',
+    tags: ['React', 'TypeScript', 'Electron-vite', 'LangChain', 'Deepseek', 'Whisper (dictation mode)', 'EODHD (finance api for stock price, financial news)', 'Google News RSS (news api for headline)', 'Yahoo Finance (finance api for fundamentals)'],
+    link: '#',
+    source: 'https://github.com/tinto-lab/stox',
+    type: 'public',
+    },
+    {
+    id: 2,
     title: 'Personal Portfolio Website',
     description: 'This site — a full-stack portfolio built with React, TypeScript, and Tailwind CSS on the frontend and a Node.js/Express backend. Features a real-time AI chatbot (Gemini API + WebSockets) with RAG over my resume, deployed on Google Cloud Run.',
     tags: ['React', 'TypeScript', 'Node.js', 'WebSockets', 'Gemini', 'Cloud Run'],
@@ -49,7 +58,7 @@ const projects = [
     type: 'public',
   },
   {
-    id: 2,
+    id: 3,
     title: 'Real-time Order Dispatching',
     description: 'Tier-1 event-driven dispatching service built with Quarkus and Kotlin. Implemented optimistic-locking concurrency and Redis pipelining/sharding to cut query latency from seconds to microseconds.',
     tags: ['Kotlin', 'Quarkus', 'Redis', 'K8S'],
@@ -58,7 +67,7 @@ const projects = [
     type: 'private',
   },
   {
-    id: 3,
+    id: 4,
     title: 'Vendor Notification Service',
     description: 'End-to-end tier-1 notification system for global vendors. Designed at-least-once SNS delivery, Prometheus/Grafana SLA dashboards, and a K6 load-testing pipeline simulating 10x peak traffic.',
     tags: ['Kotlin', 'SNS/SQS', 'Prometheus', 'Grafana', 'Go'],
@@ -67,7 +76,7 @@ const projects = [
     type: 'private',
   },
   {
-    id: 4,
+    id: 5,
     title: '3D Human Pose Estimation',
     description: 'Master\'s thesis project: a computer vision pipeline reconstructing 3D human poses from multi-camera video by aggregating multi-view information through epipolar geometry.',
     tags: ['PyTorch', 'Python', 'Computer Vision', 'ML'],
